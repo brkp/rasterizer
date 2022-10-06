@@ -1,0 +1,10 @@
+[package]
+name = "render"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+arche = { path = "../arche" }
+
+[profile.release]
+incremental = true
