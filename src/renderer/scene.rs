@@ -37,9 +37,9 @@ impl Scene {
 
                         draw::triangle(
                             ctx,
-                            self.viewport.project(v0),
-                            self.viewport.project(v1),
-                            self.viewport.project(v2),
+                            self.viewport.project(v0.into()),
+                            self.viewport.project(v1.into()),
+                            self.viewport.project(v2.into()),
                             Color::default(),
                         )
                     });

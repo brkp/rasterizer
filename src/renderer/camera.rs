@@ -1,9 +1,10 @@
+use crate::renderer::vec3::Vec3;
 use arche::Point;
 
 #[derive(Default, Debug)]
 pub struct Camera {
-    pub pos: Point,
-    pub rot: f32,
+    pub pos: Vec3,
+    pub rot: Vec3,
 }
 
 #[derive(Default, Debug)]
@@ -14,6 +15,16 @@ pub struct Viewport {
 
     pub wc: f32,
     pub hc: f32,
+}
+
+impl Camera {
+    pub fn new(pos: Vec3, rot: Vec3) -> Self {
+        Self { pos, rot }
+    }
+
+    pub fn relative(&self, v: Vec3) -> Vec3 {
+        v
+    }
 }
 
 impl Viewport {
@@ -28,10 +39,10 @@ impl Viewport {
         )
     }
 
-    pub fn project(&self, v: [f32; 3]) -> Point {
+    pub fn project(&self, v: Vec3) -> Point {
         self.viewport_to_screen(
-            (v[0] + 0.0) * self.d / (v[2] + 3.0),
-            (v[1] - 0.0) * self.d / (v[2] + 3.0),
+            (v.x + 0.0) * self.d / (v.z + 9.0),
+            (v.y - 1.5) * self.d / (v.z + 9.0),
         )
     }
 }
