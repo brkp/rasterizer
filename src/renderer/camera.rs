@@ -23,7 +23,7 @@ impl Camera {
     }
 
     pub fn relative(&self, v: Vec3) -> Vec3 {
-        v
+        (v - self.pos).rotate(self.rot * -1.0)
     }
 }
 
@@ -40,9 +40,6 @@ impl Viewport {
     }
 
     pub fn project(&self, v: Vec3) -> Point {
-        self.viewport_to_screen(
-            (v.x + 0.0) * self.d / (v.z + 9.0),
-            (v.y - 1.5) * self.d / (v.z + 9.0),
-        )
+        self.viewport_to_screen(v.x * self.d / v.z, v.y * self.d / v.z)
     }
 }
