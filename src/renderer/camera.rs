@@ -25,6 +25,14 @@ impl Camera {
     pub fn relative(&self, v: Vec3) -> Vec3 {
         (v - self.pos).rotate(self.rot * -1.0)
     }
+
+    pub fn move_pos(&mut self, diff: Vec3) {
+        self.pos = self.pos + diff.rotate(Vec3::new(0.0, self.rot.y, self.rot.z));
+    }
+
+    pub fn rotate(&mut self, diff: Vec3) {
+        self.rot = self.rot + diff.rotate(Vec3::new(0.0, self.rot.y, self.rot.z));
+    }
 }
 
 impl Viewport {
@@ -34,8 +42,8 @@ impl Viewport {
 
     pub fn viewport_to_screen(&self, x: f32, y: f32) -> Point {
         Point::new(
-            (self.wc / 2.0 + x * self.wc / self.w) as i32,
-            (self.hc / 2.0 - y * self.hc / self.h) as i32,
+            (self.wc / 2.0 + x * self.wc / self.w) as u32,
+            (self.hc / 2.0 - y * self.hc / self.h) as u32,
         )
     }
 
